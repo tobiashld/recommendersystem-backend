@@ -1,12 +1,12 @@
-# syntax=docker/dockerfile:1
+FROM ubuntu
 
-FROM python:3.8-slim-buster
+# Install dependencies
+RUN apt-get update && apt-get -y install python3 python3-pip
 
-WORKDIR /
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+WORKDIR /app
+COPY app/ .
 
-COPY . .
-
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT ["python3", "main.py"]
