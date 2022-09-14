@@ -8,7 +8,7 @@ api =   Api(app)
 
 @app.route('/', methods = ['GET'])
 def mainRoute():
-    return jsonify(hello="world")
+    return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
 
 
 if __name__=='__main__':
