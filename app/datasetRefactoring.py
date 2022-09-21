@@ -4,7 +4,9 @@ import numpy as np
 
 [2]# Load Dataset
 df = pd.read_csv('dataset\combined_data_1.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1])
-df['Rating'] = df['Rating'].astype(float)
+#df = df.append(pd.read_csv('dataset\combined_data_2.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1]))
+#df = df.append(pd.read_csv('dataset\combined_data_3.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1]))
+#df = df.append(pd.read_csv('dataset\combined_data_4.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1]))
 
 [3]# Refactor Dataset - Goal: a Dataframe with the Columns 'User_Id', 'Rating' and 'Movie_id' which contains every Rating
 # Create a Dataframe which indexes every Movie-id-row (they are the only rows without a rating)
@@ -35,9 +37,7 @@ movie_id_column = np.append(movie_id_column, lastentry)
 
 # last delete the Movie-id-row 
 df = df[pd.notnull(df['Rating'])]
-# and declare the user-ids column as integer, since know it now contains only numbers
-df['User_Id'] = df['User_Id'].astype(int)
-# and add the movie_id_column to the dataframe
 df['Movie_Id'] = movie_id_column.astype(int)
 
-print(df)
+[4]# Export dataset
+df.to_csv('refactored_data.csv', sep=',', index=False, header=False)
