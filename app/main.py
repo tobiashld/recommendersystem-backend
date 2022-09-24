@@ -1,12 +1,10 @@
 import os
 from flask import Flask,jsonify,request,abort
-from flask_restful import Api, Resource
 from flask_cors import CORS,cross_origin
 import requests
 
 app = Flask(__name__)
 
-api =   Api(app)
 CORS(app)
 @app.route('/', methods = ['GET'])
 @cross_origin()
