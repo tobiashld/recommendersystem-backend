@@ -23,7 +23,7 @@ def dropdownSearchRoute():
     api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=3"
     response = requests.get(api_url)
     if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
-        return _corsify_actual_response(jsonify(response.text))        
+        return jsonify(response.text)       
     else:
         abort(404)
 
