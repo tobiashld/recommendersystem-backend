@@ -1,4 +1,5 @@
 import os
+from src.service.solrservice import search_film_by_name
 from src.service.recommenderservice import recommend_for_movie as movieservice
 from flask_restful import Api, Resource
 from flask import Flask,jsonify,request,abort
@@ -8,7 +9,11 @@ import json
 
 app = Flask(__name__)
 
-CORS(app)
+api_v1_cors_config = {
+  "origins": ["*"]
+}
+CORS(app, resources={"/*": api_v1_cors_config})
+
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods = ['GET'])
@@ -23,20 +28,11 @@ def index(id):
     return movieservice(id)
 
 
-
 @app.route('/dropdownsearch', methods = ['GET'])
 @cross_origin()
 def dropdownSearchRoute():
     searchtitle = str(request.args.get("searchtitle")).lower()
-    endsuchstring = ""
-    for word in searchtitle.split(" "):
-        endsuchstring += "*"+word+"*"
-    api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=3"
-    response = requests.get(api_url)
-    if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
-        return jsonify(response.text)       
-    else:
-        abort(404)
+    return search_film_by_name(searchtitle) 
 
 
 if __name__=='__main__':
