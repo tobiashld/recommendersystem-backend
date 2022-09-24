@@ -21,7 +21,7 @@ def recommend_for_movie(movie_id):
     return(json_neighbors)
 
 def get_neighbors(movie_id):
-    df = pd.read_csv('neighbours_ids.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
+    df = pd.read_csv('app\neighbours_ids.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
     neighbors = df.iloc[movie_id-1]
     if(neighbors['self']!=movie_id):
         print('Error in "src.service.recommenderservice.recommend_for_movie" - First Element is not the requested movie')
