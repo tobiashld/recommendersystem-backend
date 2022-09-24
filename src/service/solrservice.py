@@ -1,3 +1,4 @@
+from flask import abort
 import requests
 
 def search_film_by_id(id):
@@ -10,3 +11,14 @@ def search_film_by_id(id):
         print('Error in "src.service.solrservice.search_film_by_id" - no docs found for netflixid ' + str(id))        
     else:
         return response_json.get('response').get('docs')
+
+def search_film_by_name(searchtitle):
+    endsuchstring = ""
+    for word in searchtitle.split(" "):
+        endsuchstring += "*"+word+"*"
+    api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=3"
+    response = requests.get(api_url)
+    if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
+        return response.json()     
+    else:
+        abort(404)
