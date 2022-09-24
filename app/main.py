@@ -5,9 +5,9 @@ from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
-CORS(app)
-api =   Api(app)
 
+api =   Api(app)
+CORS(api)
 @app.route('/', methods = ['GET'])
 def mainRoute():
     return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
