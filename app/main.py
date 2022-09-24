@@ -16,9 +16,10 @@ def mainRoute():
 def dropdownSearchRoute():
     searchtitle = str(request.args.get("searchtitle")).lower()
     endsuchstring = ""
-    for word in searchtitle.split("+"):
-      endsuchstring += "*"+word+"*"
+    for word in searchtitle.split(" "):
+        endsuchstring += "*"+word+"*"
     api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=3"
+    print(api_url)
     response = requests.get(api_url)
     if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
         return jsonify(response.text)        
