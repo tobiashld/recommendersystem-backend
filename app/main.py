@@ -1,4 +1,6 @@
 import os
+from src.service.recommenderservice import recommend_for_movie as movieservice
+from flask_restful import Api, Resource
 from flask import Flask,jsonify,request,abort
 from flask_cors import CORS,cross_origin
 import requests
@@ -12,6 +14,12 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def mainRoute():
     return  _corsify_actual_response(jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/"))
+
+
+@app.route('/get/<id>')
+def index(id):
+    id = int(id)
+    return movieservice(id)
 
 @app.route('/dropdownsearch', methods = ['GET'])
 @cross_origin()
@@ -27,9 +35,6 @@ def dropdownSearchRoute():
     else:
         abort(404)
 
-def _corsify_actual_response(response):
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
 
 if __name__=='__main__':
     cfg_port = os.getenv('PORT', "80")
