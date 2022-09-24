@@ -11,7 +11,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/', methods = ['GET'])
 @cross_origin()
 def mainRoute():
-    return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
+    return  _corsify_actual_response(jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/"))
 
 @app.route('/dropdownsearch', methods = ['GET'])
 @cross_origin()
@@ -23,9 +23,13 @@ def dropdownSearchRoute():
     api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=3"
     response = requests.get(api_url)
     if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
-        return jsonify(response.text)        
+        return _corsify_actual_response(jsonify(response.text))        
     else:
         abort(404)
+
+def _corsify_actual_response(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 if __name__=='__main__':
     cfg_port = os.getenv('PORT', "80")
