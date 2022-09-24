@@ -9,7 +9,7 @@ import requests
 app = Flask(__name__)
 
 api_v1_cors_config = {
-  "origins": ["http://localhost:5000","https://env-frontend-recommendersystem.herokuapp.com/","https://frontend-recommendersystem.herokuapp.com/"]
+  "origins": ["*"]
 }
 CORS(app, resources={"/*": api_v1_cors_config})
 
