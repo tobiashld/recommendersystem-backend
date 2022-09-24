@@ -13,7 +13,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/', methods = ['GET'])
 @cross_origin()
 def mainRoute():
-    for root, dirs, files in os.walk('.'):
+    startpath = '.'
+    for root, dirs, files in os.walk(startpath):
         level = root.replace(startpath, '').count(os.sep)
         indent = ' ' * 4 * (level)
         print('{}{}/'.format(indent, os.path.basename(root)))
