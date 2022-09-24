@@ -4,6 +4,7 @@ from flask_restful import Api, Resource
 from flask import Flask,jsonify,request,abort
 from flask_cors import CORS,cross_origin
 import requests
+import json
 
 app = Flask(__name__)
 
@@ -22,10 +23,6 @@ def index(id):
     return movieservice(id)
 
 
-@app.route('/get/<id>')
-def index(id):
-    id = int(id)
-    return movieservice(id)
 
 @app.route('/dropdownsearch', methods = ['GET'])
 @cross_origin()
