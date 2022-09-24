@@ -7,7 +7,7 @@ import requests
 app = Flask(__name__)
 
 api =   Api(app)
-CORS(api)
+CORS(app)
 @app.route('/', methods = ['GET'])
 @cross_origin()
 def mainRoute():
