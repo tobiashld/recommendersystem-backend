@@ -21,6 +21,12 @@ def index(id):
     id = int(id)
     return movieservice(id)
 
+
+@app.route('/get/<id>')
+def index(id):
+    id = int(id)
+    return movieservice(id)
+
 @app.route('/dropdownsearch', methods = ['GET'])
 @cross_origin()
 def dropdownSearchRoute():
