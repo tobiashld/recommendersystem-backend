@@ -3,8 +3,10 @@ import json
 from src.service.solrservice import search_film_by_id as dbservice
 
 def recommend_for_movies(movie_ids):
+    gesamtRecommendation = []
     for i in movie_ids:
-        recommend_for_movie(i)
+        gesamtRecommendation.append(recommend_for_movie(int(i)))
+    return gesamtRecommendation
 
 def recommend_for_movie(movie_id):
     neighbors = get_neighbors(movie_id)
