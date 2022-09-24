@@ -2,10 +2,8 @@ import string
 
 class movie:
     id: int
-    netflixid: int
-    picture: string
+    title: string    
     beschreibung: string
     releaseJahr: int
-    searchtitle: string
-    volltextName: string
-    _version_: string
+    imgPath: string
+   #userGivenRating: int
