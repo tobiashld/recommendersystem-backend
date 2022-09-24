@@ -9,10 +9,12 @@ app = Flask(__name__)
 api =   Api(app)
 CORS(api)
 @app.route('/', methods = ['GET'])
+@cross_origin()
 def mainRoute():
     return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
 
 @app.route('/dropdownsearch', methods = ['GET'])
+@cross_origin()
 def dropdownSearchRoute():
     searchtitle = str(request.args.get("searchtitle")).lower()
     endsuchstring = ""
