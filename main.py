@@ -13,15 +13,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/', methods = ['GET'])
 @cross_origin()
 def mainRoute():
-    startpath = '.'
-    for root, dirs, files in os.walk(startpath):
-        level = root.replace(startpath, '').count(os.sep)
-        indent = ' ' * 4 * (level)
-        print('{}{}/'.format(indent, os.path.basename(root)))
-        subindent = ' ' * 4 * (level + 1)
-        for f in files:
-            print('{}{}'.format(subindent, f))
-    return  jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
+    return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
+
+
+@app.route('/get/<id>')
+def index(id):
+    id = int(id)
+    return movieservice(id)
 
 
 @app.route('/get/<id>')
