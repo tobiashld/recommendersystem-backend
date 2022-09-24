@@ -3,3 +3,7 @@ Flask-RESTful
 Flask-CORS
 Requests
 gunicorn==20.1.0
+pandas
+json
+numpy
+sklearn
