@@ -1,4 +1,5 @@
 Flask
 Flask-RESTful
 Flask-CORS
+Requests
 gunicorn==20.1.0
