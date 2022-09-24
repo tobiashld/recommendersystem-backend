@@ -14,10 +14,11 @@ def recommend_for_movie(movie_id):
     json_self = json.dumps(movie_information_self)
     json_neighbors = json.dumps(movie_information_neighbors)
 
-    print("self:")
-    print(json_self)
-    print("neighbors:")
-    print(json_neighbors)    
+    #print("self:")
+    #print(json_self)
+    #print("neighbors:")
+    #print(json_neighbors)   
+    return(json_neighbors)
 
 def get_neighbors(movie_id):
     df = pd.read_csv('neighbours_ids.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
@@ -42,5 +43,5 @@ def get_movie_information_self(self_id):
     if(movie_information):
         return movie_information
 
-recommend_for_movie(3)
-recommend_for_movies([1,3])
+#recommend_for_movie(3)
+#recommend_for_movies([1,3])
