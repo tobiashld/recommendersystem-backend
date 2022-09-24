@@ -21,7 +21,7 @@ def mainRoute():
         subindent = ' ' * 4 * (level + 1)
         for f in files:
             print('{}{}'.format(subindent, f))
-    return  _corsify_actual_response(jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/"))
+    return  jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
 
 
 @app.route('/get/<id>')
