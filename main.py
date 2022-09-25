@@ -35,8 +35,6 @@ def index(id):
 def getSammlung():
     print(request.args.get("ids"))
     ids = request.args.get("ids").split(" ")
-
-    print(ids)
     return {"result":sammlungmovieservice(ids)}
 
 
