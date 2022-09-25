@@ -7,7 +7,24 @@ def search_film_by_id(id):
     response_json = response.json()
     if(not response.ok):
         print('Error in "src.service.solrservice.search_film_by_id" - DB-Response not ok')
-    elif(not response_json.get('response').get('docs')):
+    elif(not hasattr(response_json.get('response'),"docs") and not response_json.get('response').get('docs') and len(response_json.get('response').get('docs')) <= 0):
+        print('Error in "src.service.solrservice.search_film_by_id" - no docs found for netflixid ' + str(id))        
+    else:
+
+        return response_json.get('response').get('docs')[0]
+        
+def search_film_by_ids(ids):
+    ids = [str(x) for x in ids]
+    print(ids)
+    ids = '%20'.join(ids)
+    api_url = "http://solrrecommendersystem.cf:8984/solr/filme/select?q=netflixid:(" + ids + ")"
+    print(api_url)
+    response = requests.get(api_url)
+    response_json = response.json()
+    print(response_json.get("response"))
+    if(not response.ok):
+        print('Error in "src.service.solrservice.search_film_by_id" - DB-Response not ok')
+    elif(not hasattr(response_json.get('response'),"docs") and not response_json.get('response').get('docs') and len(response_json.get('response').get('docs')) <= 0):
         print('Error in "src.service.solrservice.search_film_by_id" - no docs found for netflixid ' + str(id))        
     else:
         return response_json.get('response').get('docs')
