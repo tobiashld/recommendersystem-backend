@@ -1,6 +1,7 @@
 [1]# Import Modules
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
+from src.evaluation.testset_processing import get_user_ids_to_drop
 
 [2]# Load Dataset
 df = pd.read_csv('refactored_data_1.csv', names = ['User_Id', 'Rating','Movie_Id'])
@@ -81,6 +82,11 @@ df_complete = df1_filterd
 df_complete = df_complete.append(df2_filterd)
 df_complete = df_complete.append(df3_filterd)
 df_complete = df_complete.append(df4_filterd)
+
+# Remove Users from testset
+users_in_testset = get_user_ids_to_drop()
+df_complete = df_complete[~df_complete['User_Id'].isin(users_in_testset)]
+df_complete.to_csv('trainingset.csv', sep=',', index=False, header=False)
 
 df_complete_matrix = df_complete.pivot_table(index='Movie_Id',columns='User_Id',values='Rating')
 df_complete_matrix = df_complete_matrix.fillna(0)

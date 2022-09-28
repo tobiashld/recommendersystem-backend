@@ -6,6 +6,14 @@ from statistics import mean
 
 from src.service.recommenderservice import get_neighbors
 
+def get_user_ids_to_drop():
+    user_ids_to_drop = []
+    f = open('sample.json')
+    data = json.load(f)
+    for i in data:
+        user_ids_to_drop.append(i['User_Id'])
+    return user_ids_to_drop
+
 def get_calculation_base(raw_true, raw_pred):
     boolean_true = []
     boolean_pred = []
@@ -26,13 +34,9 @@ def get_mean_precision_recall():
     data = json.load(f)
 
     # Iterating through the dictionary
-    user_ids_to_drop = []
     precision_total = []
     recall_total = []
-    for i in data:
-        # Get a list of userids from the test set to drop them from the training set
-        user_ids_to_drop.append(i['User_Id'])
-        
+    for i in data:        
         # Get predictions for the prediction base
         raw_pred = []
         for j in i['Prediction_Base']:
@@ -49,3 +53,7 @@ def get_mean_precision_recall():
         recall_total = np.append(recall_total,recall)
 
     return mean(precision_total), mean(recall_total)
+
+mean_precision, mean_recall = get_mean_precision_recall()
+print(mean_precision)
+print(mean_recall)
