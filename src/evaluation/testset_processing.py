@@ -1,14 +1,18 @@
+[1]# Import Modules
+import time
+# Runtime variable
+start = time.time()
 import json
 import numpy as np
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from statistics import mean
-
+# TODO: Eure prediction Methode importieren
 from src.service.recommenderservice import get_neighbors
 
 def get_user_ids_to_drop():
     user_ids_to_drop = []
-    f = open('sample.json')
+    f = open('testset.json')
     data = json.load(f)
     for i in data:
         user_ids_to_drop.append(i['User_Id'])
@@ -28,7 +32,7 @@ def get_calculation_base(raw_true, raw_pred):
 
 def get_mean_precision_recall(): 
     # Opening JSON file
-    f = open('sample.json')
+    f = open('testset.json')
     
     # returns JSON object as a dictionary
     data = json.load(f)
@@ -39,9 +43,11 @@ def get_mean_precision_recall():
     for i in data:        
         # Get predictions for the prediction base
         raw_pred = []
+        #################################################################
+        # TODO: An dieser Stelle müssen eure predictions eingefügt werden 
         for j in i['Prediction_Base']:
             raw_pred = np.append(raw_pred, get_neighbors(j))
-        
+        #################################################################
         # Get true values for the prediction base
         raw_true = i['Raw_true']
 
@@ -57,3 +63,7 @@ def get_mean_precision_recall():
 mean_precision, mean_recall = get_mean_precision_recall()
 print(mean_precision)
 print(mean_recall)
+
+[8]# Runtime analysis
+end = time.time()
+print('Runtime: {:5.3f}s'.format(end-start))
