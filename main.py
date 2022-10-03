@@ -20,15 +20,13 @@ def mapStringsToInt(substring):
     return int(substring)
 
 @app.route('/', methods = ['GET'])
-@cross_origin()
 def mainRoute():
     return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
 
 
-@app.route('/get/<id>', methods = ['GET'])
-@cross_origin
-def index(id):
-    id = int(id)
+@app.route('/get', methods = ['GET'])
+def index():
+    id = int(request.args.get("id"))
     return movieservice(id)
 
 @app.route('/get/Sammlung', methods = ['GET'])
@@ -39,7 +37,7 @@ def getSammlung():
 
 
 @app.route('/dropdownsearch', methods = ['GET'])
-@cross_origin()
+@cross_origin
 def dropdownSearchRoute():
     searchtitle = str(request.args.get("searchtitle")).lower()
     return search_film_by_name(searchtitle) 
