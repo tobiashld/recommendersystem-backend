@@ -12,7 +12,7 @@ def recommend_for_movie(movie_id):
     neighbors = get_neighbors(movie_id)
     #print(neighbors)
     movie_information_self = get_movie_information_self(neighbors[0])
-    movie_information_neighbors = get_movie_information_neighbors(neighbors[1:7])
+    movie_information_neighbors = get_movie_information_neighbors(neighbors[1:])
     #print(movie_information_neighbors)
     #print(json_neighbors)
     #print("self:")
