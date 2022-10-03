@@ -54,7 +54,7 @@ end_model = time.time()
 print('Runtime model: {:5.3f}s'.format(end_model-start_model))
 
 [7]# Increase every number by one to make sure the model contains ids instead of indices
-df = pd.read_csv('neighbors.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
+df = pd.read_csv('neighbours.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
 
 for index, row in df.iterrows():
     row['self']+=1
