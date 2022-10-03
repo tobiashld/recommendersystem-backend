@@ -37,7 +37,6 @@ def getSammlung():
 
 
 @app.route('/dropdownsearch', methods = ['GET'])
-@cross_origin
 def dropdownSearchRoute():
     searchtitle = str(request.args.get("searchtitle")).lower()
     return search_film_by_name(searchtitle) 
