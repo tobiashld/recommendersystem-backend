@@ -5,15 +5,18 @@ import plotly.graph_objs as go
 from plotly.offline import plot
 
 [2]# Load Dataset
-df1 = pd.read_csv('refactored_data_1.csv', names = ['User_Id', 'Rating','Movie_Id'])
-df2 = pd.read_csv('refactored_data_2.csv', names = ['User_Id', 'Rating','Movie_Id'])
-df3 = pd.read_csv('refactored_data_3.csv', names = ['User_Id', 'Rating','Movie_Id'])
-df4 = pd.read_csv('refactored_data_4.csv', names = ['User_Id', 'Rating','Movie_Id'])
+df = pd.read_csv('refactored_data_complete.csv', names = ['User_Id', 'Rating','Movie_Id'])
+#df = pd.read_csv('trainingset.csv', names = ['User_Id', 'Rating','Movie_Id'])
 
-df = df1
-df = df.append(df2)
-df = df.append(df3)
-df = df.append(df4)
+#df1 = pd.read_csv('refactored_data_1.csv', names = ['User_Id', 'Rating','Movie_Id'])
+#df2 = pd.read_csv('refactored_data_2.csv', names = ['User_Id', 'Rating','Movie_Id'])
+#df3 = pd.read_csv('refactored_data_3.csv', names = ['User_Id', 'Rating','Movie_Id'])
+#df4 = pd.read_csv('refactored_data_4.csv', names = ['User_Id', 'Rating','Movie_Id'])
+
+#df = df1
+#df = df.append(df2)
+#df = df.append(df3)
+#df = df.append(df4)
 
 [3]# Count Ratings, Rated Movies and Users
 rating_count = df['Rating'].value_counts().sum()
@@ -55,24 +58,22 @@ plot(fig)
 
 [6]# Ratings per User
 # Get data
-data = df.groupby('User_Id')['Rating'].count()
+data = df.groupby('User_Id')['Rating'].count().clip(upper=800)
 print(data.sort_values())
 
 # Create trace
 trace = go.Histogram(x = data.values,
-                     name = 'Ratings',
-                     xbins = dict(start = 0,
-                                  size = 2),
+                     xbins = dict(
+                                    start = 0,
+                                    end = 810,
+                                    size = 10),
                      marker = dict(color = '#073763'))
 # Create layout
 layout = go.Layout(title = 'Verteilung der Bewertungen je Benutzer',
-                   xaxis = dict(title = 'Bewertungen je Benutzer'),
-                   yaxis = dict(title = 'Anzahl'),
+                   xaxis = dict(title = 'Anzahl Bewertungen je Benutzer'),
+                   yaxis = dict(title = 'Anzahl Benutzer'),
                    bargap = 0.2)
 
 # Create plot
 fig = go.Figure(data=[trace], layout=layout)
 plot(fig)
-
-#df_bla=df.sort_values('User_Id')
-#print(df_bla)
