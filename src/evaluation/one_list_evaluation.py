@@ -1,5 +1,6 @@
-[1]# Import Modules
+# Import Modules
 import time
+import datetime
 # Runtime variable
 start = time.time()
 import json
@@ -7,7 +8,6 @@ import numpy as np
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from statistics import mean
-# TODO: Eure prediction Methode importieren
 from src.service.recommenderservice import get_shared_neighbors_for_list
 
 def get_user_ids_to_drop():
@@ -62,6 +62,6 @@ mean_precision, mean_recall = get_mean_precision_recall()
 print(mean_precision)
 print(mean_recall)
 
-[8]# Runtime analysis
+# Runtime analysis
 end = time.time()
-print('Runtime: {:5.3f}s'.format(end-start))
+print('Runtime: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=end-start))))

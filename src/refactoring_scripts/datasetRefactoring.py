@@ -1,5 +1,6 @@
 [1]# Import Modules
 import time
+import datetime
 # Runtime variable
 start = time.time()
 import pandas as pd
@@ -59,4 +60,4 @@ df.to_csv('refactored_data_complete.csv', sep=',', index=False, header=False)
 
 [5]# Runtime analysis
 end = time.time()
-print('Runtime: {:5.3f}s'.format(end-start))
+print('Runtime: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=end-start))))
