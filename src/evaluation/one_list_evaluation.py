@@ -8,7 +8,7 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from statistics import mean
 # TODO: Eure prediction Methode importieren
-from src.service.recommenderservice import get_neighbors
+from src.service.recommenderservice import get_shared_neighbors_for_list
 
 def get_user_ids_to_drop():
     user_ids_to_drop = []
@@ -40,14 +40,12 @@ def get_mean_precision_recall():
     # Iterating through the dictionary
     precision_total = []
     recall_total = []
-    for i in data:
-        #################################################################
-        # TODO: An dieser Stelle müssen eure predictions eingefügt werden 
+    for i in data:        
         # Get predictions for the prediction base
         raw_pred = []
-        for j in i['Prediction_Base']:
-            raw_pred = np.append(raw_pred, get_neighbors(j))
-        #################################################################
+        pred_base = i['Prediction_Base']
+        raw_pred = get_shared_neighbors_for_list(pred_base)
+
         # Get true values for the prediction base
         raw_true = i['Raw_true']
 

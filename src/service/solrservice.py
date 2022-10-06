@@ -15,13 +15,10 @@ def search_film_by_id(id):
         
 def search_film_by_ids(ids):
     ids = [str(x) for x in ids]
-    print(ids)
     ids = '%20'.join(ids)
-    api_url = "http://solrrecommendersystem.cf:8984/solr/filme/select?q=netflixid:(" + ids + ")"
-    print(api_url)
+    api_url = "http://solrrecommendersystem.cf:8984/solr/filme/select?q=netflixid:(" + ids + ")&rows=50"
     response = requests.get(api_url)
     response_json = response.json()
-    print(response_json.get("response"))
     if(not response.ok):
         print('Error in "src.service.solrservice.search_film_by_id" - DB-Response not ok')
     elif(not hasattr(response_json.get('response'),"docs") and not response_json.get('response').get('docs') and len(response_json.get('response').get('docs')) <= 0):
@@ -33,7 +30,7 @@ def search_film_by_name(searchtitle):
     endsuchstring = ""
     for word in searchtitle.split(" "):
         endsuchstring += "*"+word+"*"
-    api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=3"
+    api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=25"
     response = requests.get(api_url)
     if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
         return response.json()     
