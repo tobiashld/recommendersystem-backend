@@ -9,12 +9,8 @@ import json
 
 app = Flask(__name__)
 
-api_v1_cors_config = {
-  "origins": ["*"]
-}
-CORS(app, resources={"/*": api_v1_cors_config})
 
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 def mapStringsToInt(substring):
     return int(substring)
