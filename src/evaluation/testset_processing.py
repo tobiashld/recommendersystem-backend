@@ -1,5 +1,6 @@
-[1]# Import Modules
+# Import Modules
 import time
+import datetime
 # Runtime variable
 start = time.time()
 import json
@@ -7,7 +8,6 @@ import numpy as np
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from statistics import mean
-# TODO: Eure prediction Methode importieren
 from src.service.recommenderservice import get_neighbors
 
 def get_user_ids_to_drop():
@@ -41,13 +41,11 @@ def get_mean_precision_recall():
     precision_total = []
     recall_total = []
     for i in data:
-        #################################################################
-        # TODO: An dieser Stelle müssen eure predictions eingefügt werden 
         # Get predictions for the prediction base
         raw_pred = []
         for j in i['Prediction_Base']:
             raw_pred = np.append(raw_pred, get_neighbors(j))
-        #################################################################
+        
         # Get true values for the prediction base
         raw_true = i['Raw_true']
 
@@ -64,6 +62,6 @@ mean_precision, mean_recall = get_mean_precision_recall()
 print(mean_precision)
 print(mean_recall)
 
-[8]# Runtime analysis
+# Runtime analysis
 end = time.time()
-print('Runtime: {:5.3f}s'.format(end-start))
+print('Runtime: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=end-start))))
