@@ -26,9 +26,9 @@ def recommend_for_movie_list(movie_ids):
 
 def get_neighbors(movie_id):
     """This method calculates a list of movieids as a recommendation for one input movie."""
-    df = pd.read_csv('neighbours_ids.csv')
+    df = pd.read_csv('neighbours_ids.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
     neighbors = df.iloc[movie_id-1]
-    if(neighbors[0]!=movie_id):
+    if(neighbors['self']!=movie_id):
         print('Error in "src.service.recommenderservice.recommend_for_movie" - First Element is not the requested movie')
     else:
         neighbors = neighbors.tolist()
