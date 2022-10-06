@@ -1,5 +1,4 @@
 import pandas as pd
-import json
 from src.service.solrservice import search_film_by_id as dbservice,search_film_by_ids as dbSammlungservice
 
 def recommend_for_movie(movie_id):
