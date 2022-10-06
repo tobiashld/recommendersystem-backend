@@ -40,11 +40,11 @@ def get_mean_precision_recall():
     # Iterating through the dictionary
     precision_total = []
     recall_total = []
-    for i in data:        
-        # Get predictions for the prediction base
-        raw_pred = []
+    for i in data:
         #################################################################
         # TODO: An dieser Stelle müssen eure predictions eingefügt werden 
+        # Get predictions for the prediction base
+        raw_pred = []
         for j in i['Prediction_Base']:
             raw_pred = np.append(raw_pred, get_neighbors(j))
         #################################################################
