@@ -2,11 +2,10 @@
 Open Source Repository for educational purposes only 
 ENTRYPOINT ["python3", "main.py"]
 
-# #####################################################################################
-# ############################# How to run each Component #############################
-# #####################################################################################
+# Ausführen der Skripte zur Datenverarbeitung
 
-# src\refactoring_scripts\datasetRefactoring.py
+## Refaktorierung des Datensatzes
+- **Pfad zum Skript**: src\refactoring_scripts\datasetRefactoring.py
 - Ziel: Den Datensatz so umstrukturieren, dass er im weiteren Verlauf/bei den Berechnungen zu verwenden ist
 - Ausführen: Einfach als Python Skript laufen lassen
 - Hinweis: Damit das Ausführen klappt, wird der Rohdatensatz von Netzflix im Workspace benötigt. Dieser ist aufgrund seiner Größe im Gitignore des Projektes. Die Pfade müssten lauten:
@@ -18,7 +17,8 @@ ENTRYPOINT ["python3", "main.py"]
     - Laufzeit als Konsolenausgabe
     - Der umstrukturierte Datensatz als .csv Datei
 
-# src\refactoring_scripts\item-based_calculation.py
+## Modellberechnung
+- **Pfad zum Skript**: src\refactoring_scripts\item-based_calculation.py
 - Ziel: Den Datensatz sinnvoll verkleinern und ein Modell berechnen, das zu jeder Filmid die 10 nächsten Nachbarn enthält
 - Ausführen: Einfach als Python Skript laufen lassen
 - Hinweis: Damit das Ausführen klappt, wird der oben berechnete refactored_data_complete Datensatz im Workspace benötigt. Dieser ist aufgrund seiner Größe im Gitignore des Projektes. Der Pfad müsste lauten:
@@ -28,7 +28,8 @@ ENTRYPOINT ["python3", "main.py"]
     - Das Modell als .csv Datei mit Indices (neighbours.csv)
     - Das Modell als .csv Datei mit Filmids (neighbours_ids.csv)
 
-# src\evaluation\testset_creation.py
+## Erstellung von Testdaten 
+- **Pfad zum Skript**: src\evaluation\testset_creation.py
 - Ziel: Einen Testdatensatz kreieren 
 - Ausführen: Einfach als Python Skript laufen lassen
 - Hinweis: Damit das Ausführen klappt, wird der oben berechnete refactored_data_complete Datensatz im Workspace benötigt. Dieser ist aufgrund seiner Größe im Gitignore des Projektes. Der Pfad müsste lauten:
@@ -37,8 +38,18 @@ ENTRYPOINT ["python3", "main.py"]
     - Laufzeit als Konsolenausgabe
     - Testdatensatz als .json Datei mit 1000 Dicts der Form: {'User_Id' : 123, 'Prediction_Base' : [1,2,3,4,5], 'Raw_true' : [10,20,75,55,66,90,...]}
 
-# src\evaluation\testset_processing.py
-- Ziel: Kennzahlen zur Evaluation berechnen
+## Berechnung von Evaluationskennzahlen - Variante A  
+- **Pfad zum Skript**: src\evaluation\testset_processing.py
+- Ziel: Kennzahlen zur Evaluation berechnen bei Rückgabe aller 10 berechneten Nachbarn für jeden Film
+- Ausführen: Einfach als Python Skript laufen lassen
+- Ausgaben: 
+    - Laufzeit als Konsolenausgabe
+    - Mean Precision als Konsolenausgabe
+    - Mean Recall als Konsolenausgabe
+
+## Berechnung von Evaluationskennzahlen - Variante B  
+- **Pfad zum Skript**: src\evaluation\one_list_evaluation.py
+- Ziel: Kennzahlen zur Evaluation berechnen bei Rückgabe einer geteilten Empfehlungsliste für den gesamten Input an Filmen
 - Ausführen: Einfach als Python Skript laufen lassen
 - Ausgaben: 
     - Laufzeit als Konsolenausgabe
