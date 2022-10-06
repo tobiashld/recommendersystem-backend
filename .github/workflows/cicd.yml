@@ -21,7 +21,7 @@ jobs:
          
   deploy:
       runs-on: ubuntu-latest
-      if: success() && github.ref_name == 'main'
+      needs: build
       steps:
       - uses: actions/checkout@v3
       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
