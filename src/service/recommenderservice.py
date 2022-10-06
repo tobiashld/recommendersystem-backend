@@ -5,7 +5,8 @@ def recommend_for_movie(movie_id):
     """This method returns movies including information as a recommendation for one movie."""
     neighbors = get_neighbors(movie_id)
     movie_information_self = get_movie_information_self(neighbors[0])
-    movie_information_neighbors = get_movie_information_neighbors(neighbors[1:7])
+    movie_information_neighbors = get_movie_information_neighbors(neighbors[1:])
+    
     movie_information_self["recommendations"] = movie_information_neighbors
     return movie_information_self
 

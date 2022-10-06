@@ -9,26 +9,20 @@ import json
 
 app = Flask(__name__)
 
-api_v1_cors_config = {
-  "origins": ["*"]
-}
-CORS(app, resources={"/*": api_v1_cors_config})
 
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 def mapStringsToInt(substring):
     return int(substring)
 
 @app.route('/', methods = ['GET'])
-@cross_origin()
 def mainRoute():
     return jsonify(info="hello this is an educationally used api. For more Details go to https://frontend-recommendersystem.herokuapp.com/")
 
 
-@app.route('/get/<id>', methods = ['GET'])
-@cross_origin
-def index(id):
-    id = int(id)
+@app.route('/get', methods = ['GET'])
+def index():
+    id = int(request.args.get("id"))
     return movieservice(id)
 
 @app.route('/get/Sammlung', methods = ['GET'])
@@ -44,7 +38,6 @@ def getGeteiltenachbarn():
     return {"result":listmovieservice(ids)}
 
 @app.route('/dropdownsearch', methods = ['GET'])
-@cross_origin()
 def dropdownSearchRoute():
     searchtitle = str(request.args.get("searchtitle")).lower()
     return search_film_by_name(searchtitle) 
