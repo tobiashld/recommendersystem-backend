@@ -5,8 +5,8 @@ import plotly.graph_objs as go
 from plotly.offline import plot
 
 [2]# Load Dataset
-df = pd.read_csv('refactored_data_complete.csv', names = ['User_Id', 'Rating','Movie_Id'])
-#df = pd.read_csv('trainingset.csv', names = ['User_Id', 'Rating','Movie_Id'])
+#df = pd.read_csv('refactored_data_complete.csv', names = ['User_Id', 'Rating','Movie_Id'])
+df = pd.read_csv('trainingset.csv', names = ['User_Id', 'Rating','Movie_Id'])
 
 #df1 = pd.read_csv('refactored_data_1.csv', names = ['User_Id', 'Rating','Movie_Id'])
 #df2 = pd.read_csv('refactored_data_2.csv', names = ['User_Id', 'Rating','Movie_Id'])
@@ -39,15 +39,15 @@ data = df['Rating'].value_counts().sort_index(ascending=False)
 
 # Create trace
 trace = go.Bar(x = data.index,
-               text = ['{:.1f} %'.format(val) for val in (data.values / df.shape[0] * 100)],
+               text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data.values / df.shape[0] * 100)],
                textposition = 'auto',
-               textfont = dict(color = '#ffffff'),
+               textfont = dict(color = '#000000'),
                y = data.values,
-               marker = dict(color = '#073763'))
+               marker = dict(color = '#FFCE30'))
 
 # Create layout
-layout = dict(title = 'Gesamtbestand: {} Filme, {} User, {} Bewertungen; gewichteter Mittelwert der Bewertungen: {} <br><br>                                                                                       Verteilung der Bewertungen' 
-                      .format(movie_count, user_count, rating_count,str(round(weighted_mean,3)).replace('.', ',')),                
+layout = dict(title = '<b>Verteilung der Bewertungen im Trainingsset</b> <br>Bestand: {} Filme  |  {} User  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
+                      .format(movie_count, user_count, rating_count,str(round(weighted_mean,3)).replace('.', ',')),
                 xaxis = dict(title = 'Bewertung'),
                 yaxis = dict(title = 'Anzahl'))
 
@@ -69,7 +69,7 @@ trace = go.Histogram(x = data.values,
                                     size = 10),
                      marker = dict(color = '#073763'))
 # Create layout
-layout = go.Layout(title = 'Verteilung der Bewertungen je Benutzer',
+layout = go.Layout(title = 'Verteilung der Bewertungen je Benutzer im Datenset',
                    xaxis = dict(title = 'Anzahl Bewertungen je Benutzer'),
                    yaxis = dict(title = 'Anzahl Benutzer'),
                    bargap = 0.2)

@@ -38,7 +38,8 @@ df_filtered.to_csv('trainingset.csv', sep=',', index=False, header=False)
 
 # Runtime variable
 end_filter = time.time()
-print('Runtime filter: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=end_filter-start_filter))))
+runtime_filter = end_filter-start_filter
+print('Runtime filter: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_filter))))
 
 [4]# Calculate Movie_id x User_Id matrix with NaN-values = 0
 
@@ -57,7 +58,8 @@ pd.DataFrame(neighbours).to_csv('neighbours.csv', sep=',', index=False, header=F
 
 # Runtime variable
 end_model = time.time()
-print('Runtime model: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=end_model-start_model))))
+runtime_model = end_model-start_model
+print('Runtime model: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_model))))
 
 [7]# Increase every number by one to make sure the model contains ids instead of indices
 df = pd.read_csv('neighbours.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
@@ -79,4 +81,6 @@ pd.DataFrame(df).to_csv('neighbours_ids.csv', sep=',', index=False, header=False
 
 [8]# Runtime analysis full script
 end_script = time.time()
-print('Runtime script: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=end_script-start_script))))
+runtime_script = end_script-start_script
+print('Runtime script: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_script))))
+print('Runtime other: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_script-runtime_filter-runtime_model))))
