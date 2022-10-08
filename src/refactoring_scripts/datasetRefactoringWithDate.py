@@ -7,10 +7,10 @@ import pandas as pd
 import numpy as np
 
 [2]# Load Dataset
-df1 = pd.read_csv('src\dataset\combined_data_1.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1])
-df2 = pd.read_csv('src\dataset\combined_data_2.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1])
-df3 = pd.read_csv('src\dataset\combined_data_3.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1])
-df4 = pd.read_csv('src\dataset\combined_data_4.txt', header = None, names = ['User_Id', 'Rating'], usecols = [0,1])
+df1 = pd.read_csv('src\dataset\combined_data_1.txt', header = None, names = ['User_Id', 'Rating', 'Date'], usecols = [0,1,2])
+df2 = pd.read_csv('src\dataset\combined_data_2.txt', header = None, names = ['User_Id', 'Rating', 'Date'], usecols = [0,1,2])
+df3 = pd.read_csv('src\dataset\combined_data_3.txt', header = None, names = ['User_Id', 'Rating', 'Date'], usecols = [0,1,2])
+df4 = pd.read_csv('src\dataset\combined_data_4.txt', header = None, names = ['User_Id', 'Rating', 'Date'], usecols = [0,1,2])
 
 [3]# Refactor Dataset - Goal: a Dataframe with the Columns 'User_Id', 'Rating' and 'Movie_id' which contains every Rating
 # Create a Dataframe which indexes every Movie-id-row (they are the only rows without a rating)
@@ -56,7 +56,7 @@ df = df.append(df2)
 df = df.append(df3)
 df = df.append(df4)
 
-df.to_csv('refactored_data_complete.csv', sep=',', index=False, header=False)
+df.to_csv('refactored_data_with_date_complete.csv', sep=',', index=False, header=False)
 
 [5]# Runtime analysis
 end = time.time()

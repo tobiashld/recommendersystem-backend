@@ -1,10 +1,11 @@
 [1]# Import Modules
 import time
+import datetime
 # Runtime variable
 start_script = time.time()
+import json
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
-from src.evaluation.testset_processing import get_user_ids_to_drop
 
 [2]# Load Dataset
 df = pd.read_csv('refactored_data_complete.csv', names = ['User_Id', 'Rating','Movie_Id'])
@@ -25,14 +26,20 @@ filter_users = filter_users[filter_users].index.tolist()
 df_filtered = df[(df['User_Id'].isin(filter_users))]
 
 # Remove Users from testset
-users_in_testset = get_user_ids_to_drop()
+users_in_testset = []
+f = open('testset.json')
+data = json.load(f)
+for i in data:
+    users_in_testset.append(i['User_Id'])
+
 df_filtered = df_filtered[~df_filtered['User_Id'].isin(users_in_testset)]
 
 df_filtered.to_csv('trainingset.csv', sep=',', index=False, header=False)
 
 # Runtime variable
 end_filter = time.time()
-print('Runtime filter: {:5.3f}s'.format(end_filter-start_filter))
+runtime_filter = end_filter-start_filter
+print('Runtime filter: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_filter))))
 
 [4]# Calculate Movie_id x User_Id matrix with NaN-values = 0
 
@@ -51,7 +58,8 @@ pd.DataFrame(neighbours).to_csv('neighbours.csv', sep=',', index=False, header=F
 
 # Runtime variable
 end_model = time.time()
-print('Runtime model: {:5.3f}s'.format(end_model-start_model))
+runtime_model = end_model-start_model
+print('Runtime model: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_model))))
 
 [7]# Increase every number by one to make sure the model contains ids instead of indices
 df = pd.read_csv('neighbours.csv', names = ['self', 'n_1','n_2','n_3','n_4','n_5','n_6','n_7','n_8','n_9','n_10'])
@@ -73,4 +81,6 @@ pd.DataFrame(df).to_csv('neighbours_ids.csv', sep=',', index=False, header=False
 
 [8]# Runtime analysis full script
 end_script = time.time()
-print('Runtime script: {:5.3f}s'.format(end_script-start_script))
+runtime_script = end_script-start_script
+print('Runtime script: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_script))))
+print('Runtime other: {} hh:mm:ss'.format(str(datetime.timedelta(seconds=runtime_script-runtime_filter-runtime_model))))
