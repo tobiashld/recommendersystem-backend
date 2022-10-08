@@ -2,29 +2,23 @@
 import numpy as np
 import pandas as pd
 import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 from plotly.offline import plot
 
 [2]# Load Dataset
 df = pd.read_csv('refactored_data_complete.csv', names = ['User_Id', 'Rating','Movie_Id'])
-#df = pd.read_csv('trainingset.csv', names = ['User_Id', 'Rating','Movie_Id'])
-
-#df1 = pd.read_csv('refactored_data_1.csv', names = ['User_Id', 'Rating','Movie_Id'])
-#df2 = pd.read_csv('refactored_data_2.csv', names = ['User_Id', 'Rating','Movie_Id'])
-#df3 = pd.read_csv('refactored_data_3.csv', names = ['User_Id', 'Rating','Movie_Id'])
-#df4 = pd.read_csv('refactored_data_4.csv', names = ['User_Id', 'Rating','Movie_Id'])
-
-#df = df1
-#df = df.append(df2)
-#df = df.append(df3)
-#df = df.append(df4)
+df_with_date = pd.read_csv('refactored_data_with_date_complete.csv', names = ['User_Id', 'Rating','Date','Movie_Id'])
+df_training = pd.read_csv('trainingset.csv', names = ['User_Id', 'Rating','Movie_Id'])
+df_movies = pd.read_csv('src\dataset\movie_titles.csv', 
+                           usecols = [0,1,2],
+                           encoding = 'ISO-8859-1', 
+                           header = None, 
+                           names = ['Id', 'Year', 'Name'])
 
 [3]# Count Ratings, Rated Movies and Users
 rating_count = df['Rating'].value_counts().sum()
 user_count = df['User_Id'].nunique()
 movie_count = df['Movie_Id'].nunique()
-print(rating_count)
-print(user_count)
-print(movie_count)
 
 [4]# Weighted Mean Ratings
 ratings_and_counts = pd.DataFrame(df['Rating'].value_counts())
@@ -39,15 +33,15 @@ data = df['Rating'].value_counts().sort_index(ascending=False)
 
 # Create trace
 trace = go.Bar(x = data.index,
-               text = ['{:.1f} %'.format(val) for val in (data.values / df.shape[0] * 100)],
-               textposition = 'auto',
-               textfont = dict(color = '#ffffff'),
+               text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data.values / df.shape[0] * 100)],
+               textposition = 'outside',
+               textfont = dict(color = '#123456'),
                y = data.values,
-               marker = dict(color = '#073763'))
+               marker = dict(color = '#123456'))
 
 # Create layout
-layout = dict(title = 'Gesamtbestand: {} Filme, {} User, {} Bewertungen; gewichteter Mittelwert der Bewertungen: {} <br><br>                                                                                       Verteilung der Bewertungen' 
-                      .format(movie_count, user_count, rating_count,str(round(weighted_mean,3)).replace('.', ',')),                
+layout = dict(title = '<b>Verteilung der Bewertungen im Datensatz</b> <br>Bestand: {} Filme  |  {} User  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
+                      .format(movie_count, user_count, rating_count,str(round(weighted_mean,3)).replace('.', ',')),
                 xaxis = dict(title = 'Bewertung'),
                 yaxis = dict(title = 'Anzahl'))
 
@@ -67,13 +61,100 @@ trace = go.Histogram(x = data.values,
                                     start = 0,
                                     end = 810,
                                     size = 10),
-                     marker = dict(color = '#073763'))
+                     marker = dict(color = '#123456'))
 # Create layout
-layout = go.Layout(title = 'Verteilung der Bewertungen je Benutzer',
+layout = go.Layout(title = 'Verteilung der Bewertungen je Benutzer im Datensatz',
                    xaxis = dict(title = 'Anzahl Bewertungen je Benutzer'),
                    yaxis = dict(title = 'Anzahl Benutzer'),
                    bargap = 0.2)
 
 # Create plot
 fig = go.Figure(data=[trace], layout=layout)
+plot(fig)
+import time
+time.sleep(1)
+
+[7]# Movies per Year
+# Get data
+data_movies = df_movies['Year'].value_counts().sort_index()
+
+# Create trace
+trace = go.Scatter(x = data_movies.index,
+                   y = data_movies.values,
+                   marker = dict(color = '#123456'))
+# Create layout
+layout = dict(title = '{}  Filme nach Veröffentlichungsjahr'.format(df_movies.shape[0]),
+              xaxis = dict(title = 'Veröffentlichungsjahr'),
+              yaxis = dict(title = 'Anzahl Filme'))
+
+# Create plot
+fig = go.Figure(data=[trace], layout=layout)
+plot(fig)
+
+[8]# Movies and Ratings per Year
+# Get data
+data_movies = df_movies['Year'].value_counts().sort_index()
+df_with_date['yyyy'] = pd.to_datetime(df_with_date['Date']).dt.year
+data_ratings = df_with_date['yyyy'].value_counts().sort_index()
+
+# Create trace
+fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+fig.add_trace(
+    go.Scatter(x = data_movies.index,
+                  y = data_movies.values,
+                  marker = dict(color = '#123456'),
+                  name="Filmerscheinungen"),
+                  secondary_y=False
+)
+fig.add_trace(
+    go.Scatter(x = data_ratings.index,
+                  y = data_ratings.values,
+                  marker = dict(color = '#B40404'),
+                  name="Bewertungen"),
+                  secondary_y=True
+)
+
+# Create layout
+fig.update_layout(title = 'Anzahl Filme und Bewertungen nach Jahr',
+                  xaxis = dict(title = 'Jahr'),
+                  xaxis_range=[1896,2008],
+                  yaxis = dict(showgrid = True, title = 'Filmerscheinungen'),
+                  yaxis2 = dict(showgrid = False, title = 'Bewertungen'))
+
+# Show plot
+plot(fig)
+
+[9]# Distribution of Ratings in the Trainingset
+rating_count_training = df_training['Rating'].value_counts().sum()
+user_count_training = df_training['User_Id'].nunique()
+movie_count_training = df_training['Movie_Id'].nunique()
+
+# Weighted Mean Ratings
+ratings_and_counts_training = pd.DataFrame(df_training['Rating'].value_counts())
+ratings_and_counts_training = ratings_and_counts_training.reset_index(level=0)
+ratings_training = ratings_and_counts_training.iloc[:, 0]
+counts_training = ratings_and_counts_training.iloc[:, 1]
+weighted_mean_training = np.average(a = ratings_training, weights = counts_training)
+
+# Get data
+data_training = df_training['Rating'].value_counts().sort_index(ascending=False)
+
+# Create trace
+trace = go.Bar(x = data_training.index,
+               text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data_training.values / df_training.shape[0] * 100)],
+               textposition = 'outside',
+               textfont = dict(color = '#0F4336'),
+               y = data_training.values,
+               marker = dict(color = '#0F4336'))
+
+# Create layout
+layout = dict(title = '<b>Verteilung der Bewertungen im Trainingsset</b> <br>Bestand: {} Filme  |  {} User  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
+                      .format(movie_count_training, user_count_training, rating_count_training,str(round(weighted_mean_training,3)).replace('.', ',')),
+                xaxis = dict(title = 'Bewertung'),
+                yaxis = dict(title = 'Anzahl'))
+
+# Create plot
+fig = go.Figure(data=[trace], layout=layout)
+fig.update_layout(title_font_size=15)
 plot(fig)
