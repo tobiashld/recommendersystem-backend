@@ -28,7 +28,7 @@ ENTRYPOINT ["python3", "main.py"]
 - **Pfad zum Skript**: src\explorative_analysis\dataanalysis.py
 - **Ziel**: Einen Blick auf deskriptive Statistiken des Datensatzes erhalten.
 - **Ausführen**: Einfach als Python Skript laufen lassen
-- **Hinweis**: Damit das Ausführen klappt, werden die oben berechneten refactored_data_complete und refactored_data_with_date_complete Datensätze im Workspace benötigt. Dieser ist aufgrund seiner Größe im Gitignore des Projektes. Außerdem wird die movie_titles.csv von Netflix benötigt. Das im Schritt "Modellberechnung" erstellte Trainingset wird für den letzten Schritt der Datenanalyse ebenfalls benötigt. Die Pfade müssten lauten:
+- **Hinweis**: Damit das Ausführen klappt, werden die oben berechneten refactored_data_complete und refactored_data_with_date_complete Datensätze im Workspace benötigt. Diese sind aufgrund ihrer Größe im Gitignore des Projektes. Außerdem wird die movie_titles.csv von Netflix benötigt. Das im Schritt "Modellberechnung" erstellte Trainingset wird für den letzten Schritt der Datenanalyse ebenfalls benötigt. Die Pfade müssten lauten:
     - refactored_data_complete.csv
     - refactored_data_with_date_complete.csv
     - trainingset.csv
