@@ -29,14 +29,14 @@ weighted_mean = np.average(a = ratings, weights = counts)
 
 [5]# Distribution of Ratings
 # Get data
-data = df['Rating'].value_counts().sort_index(ascending=False)
+data_ratings = df['Rating'].value_counts().sort_index(ascending=False)
 
 # Create trace
-trace = go.Bar(x = data.index,
-               text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data.values / df.shape[0] * 100)],
+trace = go.Bar(x = data_ratings.index,
+               text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data_ratings.values / df.shape[0] * 100)],
                textposition = 'outside',
                textfont = dict(color = '#123456'),
-               y = data.values,
+               y = data_ratings.values,
                marker = dict(color = '#123456'))
 
 # Create layout
@@ -52,18 +52,18 @@ plot(fig)
 
 [6]# Ratings per User
 # Get data
-data = df.groupby('User_Id')['Rating'].count().clip(upper=800)
-print(data.sort_values())
+data_user = df.groupby('User_Id')['Rating'].count().clip(upper=800)
+print(data_user.sort_values())
 
 # Create trace
-trace = go.Histogram(x = data.values,
+trace = go.Histogram(x = data_user.values,
                      xbins = dict(
                                     start = 0,
                                     end = 810,
                                     size = 10),
                      marker = dict(color = '#123456'))
 # Create layout
-layout = go.Layout(title = 'Verteilung der Bewertungen je Benutzer im Datensatz',
+layout = go.Layout(title = '<br>Verteilung der Bewertungen je Benutzer im Datensatz',
                    xaxis = dict(title = 'Anzahl Bewertungen je Benutzer'),
                    yaxis = dict(title = 'Anzahl Benutzer'),
                    bargap = 0.2)
@@ -116,11 +116,21 @@ fig.add_trace(
 )
 
 # Create layout
-fig.update_layout(title = 'Anzahl Filme und Bewertungen nach Jahr',
+fig.update_layout(title = '<br>Anzahl Filme und Bewertungen nach Jahr',
                   xaxis = dict(title = 'Jahr'),
                   xaxis_range=[1896,2008],
                   yaxis = dict(showgrid = True, title = 'Filmerscheinungen'),
-                  yaxis2 = dict(showgrid = False, title = 'Bewertungen'))
+                  yaxis2 = dict(showgrid = False, title = 'Bewertungen'),
+                  legend=dict(
+                        x=0.033,
+                        y=.93,
+                        traceorder="normal",
+                        font=dict(
+                            family="sans-serif",
+                            size=12,
+                            color="black"
+                        ),
+    ))
 
 # Show plot
 plot(fig)
