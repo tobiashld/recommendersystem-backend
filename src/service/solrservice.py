@@ -2,7 +2,7 @@ from flask import abort
 import requests
 
 def search_film_by_id(id):
-    api_url = "http://solrrecommendersystem.cf:8984/solr/filme/select?q=netflixid:" + str(id)
+    api_url = "http://solrrecommendersystem.cf:8984/solr/filminfos/select?q=netflixid:" + str(id)
     response = requests.get(api_url)
     response_json = response.json()
     if(not response.ok):
@@ -16,7 +16,7 @@ def search_film_by_id(id):
 def search_film_by_ids(ids):
     ids = [str(x) for x in ids]
     ids = '%20'.join(ids)
-    api_url = "http://solrrecommendersystem.cf:8984/solr/filme/select?q=netflixid:(" + ids + ")&rows=50"
+    api_url = "http://solrrecommendersystem.cf:8984/solr/filminfos/select?q=netflixid:(" + ids + ")"
     response = requests.get(api_url)
     response_json = response.json()
     if(not response.ok):
@@ -30,7 +30,7 @@ def search_film_by_name(searchtitle):
     endsuchstring = ""
     for word in searchtitle.split(" "):
         endsuchstring += "*"+word+"*"
-    api_url =  "http://solrrecommendersystem.cf:8984/solr/filme/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=25"
+    api_url =  "http://solrrecommendersystem.cf:8984/solr/filminfos/select?q=searchtitle%3A"+endsuchstring+"&q.op=OR&rows=25"
     response = requests.get(api_url)
     if response.status_code == 200 and hasattr(response,"text"): #and response.text > 0:
         return response.json()     
