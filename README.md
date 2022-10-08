@@ -11,7 +11,8 @@ ENTRYPOINT ["python3", "main.py"]
 # Ausführen der Skripte zur Datenverarbeitung
 
 ### Refaktorierung des Datensatzes
-- **Pfad zum Skript**: src\refactoring_scripts\datasetRefactoring.py
+- **Pfad zum Skript ohne Datum**: src\refactoring_scripts\datasetRefactoring.py
+- **Pfad zum Skript mit Datum**: src\refactoring_scripts\datasetRefactoringWithDate.py
 - **Ziel**: Den Datensatz so umstrukturieren, dass er im weiteren Verlauf/bei den Berechnungen zu verwenden ist
 - **Ausführen**: Einfach als Python Skript laufen lassen
 - **Hinweis**: Damit das Ausführen klappt, wird der Rohdatensatz von Netzflix im Workspace benötigt. Dieser ist aufgrund seiner Größe im Gitignore des Projektes. Die Pfade müssten lauten:
@@ -21,7 +22,19 @@ ENTRYPOINT ["python3", "main.py"]
     - src\dataset\combined_data_4.txt
 - **Ausgaben**: 
     - Laufzeit als Konsolenausgabe
-    - Der umstrukturierte Datensatz als .csv Datei
+    - Der umstrukturierte Datensatz als .csv Datei ohne Datum (refactored_data_complete.csv)/mit Datum (refactored_data_with_date_complete.csv)
+
+### Explorative Datenanalyse
+- **Pfad zum Skript**: src\explorative_analysis\dataanalysis.py
+- **Ziel**: Einen Blick auf deskriptive Statistiken des Datensatzes erhalten.
+- **Ausführen**: Einfach als Python Skript laufen lassen
+- **Hinweis**: Damit das Ausführen klappt, werden die oben berechneten refactored_data_complete und refactored_data_with_date_complete Datensätze im Workspace benötigt. Diese sind aufgrund ihrer Größe im Gitignore des Projektes. Außerdem wird die movie_titles.csv von Netflix benötigt. Das im Schritt "Modellberechnung" erstellte Trainingset wird für den letzten Schritt der Datenanalyse ebenfalls benötigt. Die Pfade müssten lauten:
+    - refactored_data_complete.csv
+    - refactored_data_with_date_complete.csv
+    - trainingset.csv
+    - src\dataset\movie_titles.csv
+- **Ausgaben**: 
+    - Diverse Datenplots als temp.html
 
 ### Modellberechnung
 - **Pfad zum Skript**: src\refactoring_scripts\item-based_calculation.py
@@ -33,6 +46,7 @@ ENTRYPOINT ["python3", "main.py"]
     - Laufzeiten (Verkleinern "Runtime filter", Modell berechnen "Runtime model" und Gesamt "Runtime script") als Konsolenausgabe
     - Das Modell als .csv Datei mit Indices (neighbours.csv)
     - Das Modell als .csv Datei mit Filmids (neighbours_ids.csv)
+    - Das verwendete Trainingsset als .csv Datei (trainingset.csv)
 
 ### Erstellung von Testdaten 
 - **Pfad zum Skript**: src\evaluation\testset_creation.py
