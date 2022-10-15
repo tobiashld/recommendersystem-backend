@@ -8,9 +8,12 @@ ENTRYPOINT ["python3", "main.py"]
 - python3.10 (https://www.python.org/) 
 ### Schritte
 1. Das Repo klonen mit: `git clone https://github.com/tobiashld/recommendersystem-backend.git`
+
 innerhalb des geklonten Ordners:
 2. Die Pakete installieren mit: `pip install -r requirements.txt`
 3. Die App starten mit: `flask --app main:app run`
+
+Die API fährt hoch und ist auf der URL: http://localhost:5000 verfügbar
 
 # Ausführen der Skripte zur Datenverarbeitung
 
