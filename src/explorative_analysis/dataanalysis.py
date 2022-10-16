@@ -40,7 +40,7 @@ trace = go.Bar(x = data_ratings.index,
                marker = dict(color = '#123456'))
 
 # Create layout
-layout = dict(title = '<b>Verteilung der Bewertungen im Datensatz</b> <br>Bestand: {} Filme  |  {} User  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
+layout = dict(title = '<b>Verteilung der Bewertungen im Datensatz</b> <br>Bestand: {} Filme  |  {} Benutzer  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
                       .format(movie_count, user_count, rating_count,str(round(weighted_mean,3)).replace('.', ',')),
                 xaxis = dict(title = 'Bewertung'),
                 yaxis = dict(title = 'Anzahl'))
@@ -159,7 +159,7 @@ trace = go.Bar(x = data_training.index,
                marker = dict(color = '#0F4336'))
 
 # Create layout
-layout = dict(title = '<b>Verteilung der Bewertungen im Trainingsset</b> <br>Bestand: {} Filme  |  {} User  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
+layout = dict(title = '<b>Verteilung der Bewertungen im Trainingsset</b> <br>Bestand: {} Filme  |  {} Benutzer  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
                       .format(movie_count_training, user_count_training, rating_count_training,str(round(weighted_mean_training,3)).replace('.', ',')),
                 xaxis = dict(title = 'Bewertung'),
                 yaxis = dict(title = 'Anzahl'))
