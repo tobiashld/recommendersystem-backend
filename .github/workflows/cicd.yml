@@ -1,6 +1,9 @@
 name: CI/ CD Steps
 
-on: [push]
+on: 
+  push:
+    branches:
+      - 'produktion'
 
 jobs:
   build:
