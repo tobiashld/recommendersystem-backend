@@ -35,9 +35,9 @@ data_ratings = df['Rating'].value_counts().sort_index(ascending=False)
 trace = go.Bar(x = data_ratings.index,
                text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data_ratings.values / df.shape[0] * 100)],
                textposition = 'outside',
-               textfont = dict(color = '#123456'),
+               textfont = dict(color = '#222222'),
                y = data_ratings.values,
-               marker = dict(color = '#123456'))
+               marker = dict(color = '#831010'))
 
 # Create layout
 layout = dict(title = '<b>Verteilung der Bewertungen im Datensatz</b> <br>Bestand: {} Filme  |  {} Benutzer  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
@@ -61,7 +61,7 @@ trace = go.Histogram(x = data_user.values,
                                     start = 0,
                                     end = 810,
                                     size = 10),
-                     marker = dict(color = '#123456'))
+                     marker = dict(color = '#831010'))
 # Create layout
 layout = go.Layout(title = '<br>Verteilung der Bewertungen je Benutzer im Datensatz',
                    xaxis = dict(title = 'Anzahl Bewertungen je Benutzer'),
@@ -110,7 +110,7 @@ fig.add_trace(
 fig.add_trace(
     go.Scatter(x = data_ratings.index,
                   y = data_ratings.values,
-                  marker = dict(color = '#B40404'),
+                  marker = dict(color = '#831010'),
                   name="Bewertungen"),
                   secondary_y=True
 )
@@ -154,9 +154,9 @@ data_training = df_training['Rating'].value_counts().sort_index(ascending=False)
 trace = go.Bar(x = data_training.index,
                text = ['<b>{:.1f} %</b>'.format(val).replace('.', ',') for val in (data_training.values / df_training.shape[0] * 100)],
                textposition = 'outside',
-               textfont = dict(color = '#0F4336'),
+               textfont = dict(color = '#222222'),
                y = data_training.values,
-               marker = dict(color = '#0F4336'))
+               marker = dict(color = '#831010'))
 
 # Create layout
 layout = dict(title = '<b>Verteilung der Bewertungen im Trainingsset</b> <br>Bestand: {} Filme  |  {} Benutzer  |  {} Bewertungen <br>Gewichteter Mittelwert der Bewertungen: {}' 
