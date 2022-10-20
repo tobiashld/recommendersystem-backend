@@ -7,7 +7,6 @@ pandas
 numpy
 sklearn
 plotly
-time
 datetime
 json
 statistics
