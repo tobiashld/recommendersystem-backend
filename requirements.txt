@@ -10,4 +10,3 @@ plotly
 pytest
 datetime
 statistics
-random
