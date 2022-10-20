@@ -1,6 +1,8 @@
 from flask import abort
 import requests
 
+
+
 def search_film_by_id(id):
     api_url = "http://solrrecommendersystem.cf:8984/solr/filminfos/select?q=netflixid:" + str(id)
     response = requests.get(api_url)
@@ -36,3 +38,9 @@ def search_film_by_name(searchtitle):
         return response.json()     
     else:
         abort(404)
+
+solrservice = {
+    search_film_by_id,
+    search_film_by_ids,
+    search_film_by_name
+}
