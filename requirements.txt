@@ -8,3 +8,5 @@ numpy
 sklearn
 plotly
 pytest
+datetime
+statistics
