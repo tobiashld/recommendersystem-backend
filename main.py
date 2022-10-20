@@ -27,13 +27,11 @@ def index():
 
 @app.route('/get/Sammlung', methods = ['GET'])
 def getSammlung():
-    print(request.args.get("ids"))
     ids = request.args.get("ids").split(" ")
     return {"result":sammlungmovieservice(ids)}
 
 @app.route('/get/Geteiltenachbarn', methods = ['GET'])
 def getGeteiltenachbarn():
-    print(request.args.get("ids"))
     ids = request.args.get("ids").split(" ")
     return {"result":listmovieservice(ids)}
 
