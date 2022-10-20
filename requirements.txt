@@ -9,6 +9,5 @@ sklearn
 plotly
 pytest
 datetime
-json
 statistics
 random
