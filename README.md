@@ -20,7 +20,7 @@ innerhalb des geklonten Ordners:
 
 
 
-Die API fährt hoch und ist auf der URL: http://localhost:5000 verfügbar
+Die API fährt hoch und ist auf der URL: http://127.0.0.1:5000 verfügbar
 
 # Ausführen der Skripte zur Datenverarbeitung
 
