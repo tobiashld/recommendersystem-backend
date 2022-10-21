@@ -11,9 +11,9 @@ ENTRYPOINT ["python3", "main.py"]
 
 innerhalb des geklonten Ordners:
 
-Windows:
+#### Windows:
 2. Die Pakete installieren mit: `pip install -r requirements.txt`
-MacOS:
+#### MacOS:
 2. Die Pakete installieren mit: `pip3 install -r requirements.txt`
 
 3. Die App starten mit: `flask --app main:app run`
