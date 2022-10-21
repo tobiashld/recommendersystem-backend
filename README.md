@@ -13,10 +13,12 @@ innerhalb des geklonten Ordners:
 
 #### Windows:
 2. Die Pakete installieren mit: `pip install -r requirements.txt`
+3. Die App starten mit: `flask --app main:app run`
 #### MacOS:
 2. Die Pakete installieren mit: `pip3 install -r requirements.txt`
-
 3. Die App starten mit: `flask --app main:app run`
+
+
 
 Die API fährt hoch und ist auf der URL: http://localhost:5000 verfügbar
 
